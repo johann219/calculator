@@ -1,1 +1,1 @@
-# calculator
+# Odin Project Calculator
