@@ -6,29 +6,79 @@ html {
   font-size: 60px;
 }
 
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  gap: 15px;
+}
+
+.border-black {
+  border: 2px solid black;
+  border-radius: 16px;
+}
+
+.color-calculator {
+  background-color: rgb(160, 160, 160);
+}
+
+.color-button {
+  background-color: rgb(200, 200, 200);
+}
+
+.color-display {
+  background-color: rgb(240, 240, 240);
+}
+
 .btn {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 160px;
   height: 120px;
-  border: 2px solid black;
+
+}
+
+.btn-num {
+  flex-grow: 1;
+}
+
+.btn-oper {
+  flex-grow: 1;
 }
 
 .row {
   display: flex;
-  width: 540px;
+  width: 700px;
   justify-content: space-evenly;
-  margin-bottom: 15px;
+  gap: 15px;
+}
+
+.row-display {
+  flex-direction: column;
+  gap: 0;
+  padding: 0 16px 0 16px;
+
 }
 
 .display {
-  border: 2px solid black;
-  height: 120px;
-  width: 510px;
-  margin: 15px;
   display: flex;
   align-items: center;
   justify-content: end;
-  padding: 10px;
 }
+
+.display-curr {
+  height: 120px;
+  border-bottom: 2px solid rgb(200, 200, 200);
+}
+
+.display-prev {
+  font-size: 0.5rem;
+  height: 60px;
+}
+
