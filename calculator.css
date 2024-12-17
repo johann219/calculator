@@ -44,11 +44,7 @@ body {
 
 }
 
-.btn-num {
-  flex-grow: 1;
-}
-
-.btn-oper {
+.btn {
   flex-grow: 1;
 }
 
@@ -71,12 +67,12 @@ body {
   justify-content: end;
 }
 
-.display-curr {
+.display-active {
   height: 120px;
   border-bottom: 2px solid rgb(200, 200, 200);
 }
 
-.display-prev {
+.display-hold {
   font-size: 0.5rem;
   height: 60px;
 }

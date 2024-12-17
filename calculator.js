@@ -1,16 +1,47 @@
-const numberButtonElementList = document.querySelectorAll('.num');
-const displayElement = document.querySelector('.display');
+const btnNumberElementList = document.querySelectorAll('.btn-num');
+const btnOperatorElementList = document.querySelectorAll('.btn-oper');
+const btnClearElement = document.querySelector('.btn-clear');
+
+const activeDisplayElement = document.querySelector('.display-active');
+const holdDisplayElement = document.querySelector('.display-hold');
+
+let activeValue = 0;
+let holdValue = 0;
 
 const updateDisplay = (value) => {
-  displayElement.textContent += value;
+  activeDisplayElement.textContent += value;
 };
 
-const onNumberButtonClick = () => {};
+const updateActiveValue = (value) => {
+  activeValue = value;
+};
 
-numberButtonElementList.forEach((element) => {
-  element.addEventListener('click', () => {
-    console.log(`Hurray! You clicked ${element.textContent}`);
-    updateDisplay(element.textContent);
+const saveActiveValueToHold = () => {
+  holdValue = activeValue;
+  activeValue = 0;
+  holdDisplayElement.textContent = activeDisplayElement.textContent;
+  activeDisplayElement.textContent = '';
+};
+
+const clearDisplay = () => {
+  activeValue = 0;
+  holdValue = 0;
+  activeDisplayElement.textContent = '';
+  holdDisplayElement.textContent = '';
+};
+
+btnNumberElementList.forEach((number) => {
+  number.addEventListener('click', () => {
+    updateDisplay(number.textContent);
+    updateActiveValue(Number(activeDisplayElement.textContent));
+    console.log(activeValue);
   });
 });
 
+btnOperatorElementList.forEach((operator) => {
+  operator.addEventListener('click', () => {
+    saveActiveValueToHold();
+  });
+});
+
+btnClearElement.addEventListener('click', () => clearDisplay());
