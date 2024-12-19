@@ -13,14 +13,6 @@ let activeValue;
 let holdValue;
 let holdOperator;
 
-const updateActiveDisplay = (value) => {
-  activeDisplayElement.textContent += value;
-};
-
-const updateActiveValue = (value) => {
-  activeValue = value;
-};
-
 const updateHold = () => {
   if (activeValue === undefined) return;
   
@@ -29,7 +21,7 @@ const updateHold = () => {
 };
 
 const resetActive = () => {
-  updateActiveValue(undefined);
+  activeValue = undefined;
   activeDisplayElement.textContent = '';
 };
 
@@ -77,19 +69,19 @@ const deleteLastCharacter = () => {
   if (activeDisplayElement.textContent.length === 0) return;
 
   activeDisplayElement.textContent = activeDisplayElement.textContent.slice(0, activeDisplayElement.textContent.length - 1);
-  updateActiveValue(Number(activeDisplayElement.textContent));
+  activeValue = Number(activeDisplayElement.textContent);
 };
 
 const addFloatingPoint = () => {
   if (activeDisplayElement.textContent.includes('.')) return;
 
-  updateActiveDisplay('.');
+  activeDisplayElement.textContent += '.';
 };
 
-btnNumberElementList.forEach((number) => {
-  number.addEventListener('click', () => {
-    updateActiveDisplay(number.textContent);
-    updateActiveValue(Number(activeDisplayElement.textContent));
+btnNumberElementList.forEach((numBtn) => {
+  numBtn.addEventListener('click', () => {
+    activeDisplayElement.textContent += numBtn.textContent;
+    activeValue = Number(activeDisplayElement.textContent);
   });
 });
 
