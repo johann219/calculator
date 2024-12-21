@@ -13,25 +13,32 @@ let activeValue;
 let holdValue;
 let holdOperator;
 
-const updateHold = () => {
+const isFraction = (displayNumber) => displayNumber.includes('.');
+const isNegative = (displayNumber) => displayNumber.includes('-');
+
+const updateActiveDisplay = () => {
+  activeDisplayElement.textContent = activeValue === undefined ? '' : activeValue;
+};
+const updateHoldDisplay = () => {
+  holdDisplayElement.textContent = holdValue === undefined ? '' : holdValue;
+};
+
+const updateHoldOnOperation = () => {
   if (activeValue === undefined) return;
   
   holdValue = holdValue === undefined ? activeValue : operate(holdValue, activeValue, holdOperator);
-  holdDisplayElement.textContent = holdValue;
+
+  updateHoldDisplay();
 };
 
 const resetActive = () => {
   activeValue = undefined;
-  activeDisplayElement.textContent = '';
+  updateActiveDisplay();
 };
 
 const resetHold = () => {
   holdValue = undefined;
-  holdDisplayElement.textContent = '';
-};
-
-const setHoldOperator = (operator) => {
-  holdOperator = operator;
+  updateHoldDisplay();
 };
 
 const operate = (firstValue, secondValue, operator) => {
@@ -51,6 +58,12 @@ const operate = (firstValue, secondValue, operator) => {
   }
 };
 
+const clearDisplayAndValues = () => {
+  resetActive();
+  resetHold();
+  holdOperator = undefined;
+};
+
 const changeActiveSign = () => {
   activeDisplayElement.textContent = activeDisplayElement.textContent.at(0) === '-' ? 
     activeDisplayElement.textContent = activeDisplayElement.textContent.slice(1) :
@@ -59,21 +72,17 @@ const changeActiveSign = () => {
   activeValue *= -1;
 };
 
-const clearDisplayAndValues = () => {
-  resetActive();
-  resetHold();
-  setHoldOperator(undefined);
-};
-
 const deleteLastCharacter = () => {
-  if (activeDisplayElement.textContent.length === 0) return;
+  const activeValueLength = activeDisplayElement.textContent.length;
+  
+  if (activeValueLength === 0) return;
 
-  activeDisplayElement.textContent = activeDisplayElement.textContent.slice(0, activeDisplayElement.textContent.length - 1);
+  activeDisplayElement.textContent = activeDisplayElement.textContent.slice(0, activeValueLength - 1);
   activeValue = Number(activeDisplayElement.textContent);
 };
 
 const addFloatingPoint = () => {
-  if (activeDisplayElement.textContent.includes('.')) return;
+  if (isFraction(activeDisplayElement.textContent)) return;
 
   activeDisplayElement.textContent += '.';
 };
@@ -87,13 +96,10 @@ btnNumberElementList.forEach((numBtn) => {
 
 btnOperatorElementList.forEach((operator) => {
   operator.addEventListener('click', () => {
-    updateHold();
+    updateHoldOnOperation();
     resetActive();
-    if (operator.classList.contains('btn-eval')) {
-      setHoldOperator(undefined);
-    } else {
-      setHoldOperator(operator.textContent);
-    }
+    
+    holdOperator = operator.classList.contains('btn-eval') ? undefined : operator.textContent;
   });
 });
 
